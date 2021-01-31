@@ -1,0 +1,31 @@
+td img {
+    width: 300px;
+}
+
+h2{
+    text-align: center;
+}
+
+h5{
+    color: black;
+}
+
+.carousel h5{
+    font-size: 30px;
+}
+
+footer{
+    text-align: center;
+}
+
+.lead{
+    margin-left: 1%;
+}
+
+.logo{
+    width: 40px;
+}
+
+.l{
+    text-align: center;
+}

@@ -1,0 +1,18 @@
+.gameOfLifeBoard{
+    border: 2px solid black;
+    margin-bottom: 10px;
+    width: 90%;
+}
+
+#gol {
+    border: 1px solid black;
+    /* width: 1%; */
+    position: relative;
+}
+
+#gol:after {
+    content: '';
+    display: block;
+    margin-top: 100%;
+}
+
