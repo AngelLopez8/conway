@@ -1,25 +1,20 @@
+// return true if cell is black ('alive'), return false otherwise
 const isAlive = (elem) => {
     let col = elem.style.backgroundColor
-    if (col === 'black'){
-        return true
-    }
-    return false
+    return col === 'black';
 }
 
+// return true if cell should be revived due to having 3 alive neighbors, return false otherwise
 const shouldRevive = (neighbors) => {
-    if (neighbors === 3){
-        return true
-    }
-    return false
+    return neighbors === 3;
 }
 
+// return true if cell should stay alive due to not having 2 or 3 neighbors
 const shouldLive = (neighbors) => {
-    if (neighbors <= 1 || neighbors >= 4){
-        return false
-    }
-    return true
+    return (neighbors <= 1 || neighbors >= 4);
 }
 
+// changes a cell with given row and column from black (alive) or white (dead)
 const changeStatus = (aCells, dCells) => { 
     let board = document.querySelectorAll('tr')
     for (let x of aCells){
@@ -32,6 +27,7 @@ const changeStatus = (aCells, dCells) => {
     }
 }
 
+// returns the number of neighbors by checking 8 possible neighbors
 const countNeighbors = (i, j) => {
     const checks = [
         [i-1, j-1],
@@ -60,6 +56,7 @@ const countNeighbors = (i, j) => {
     return count
 }
 
+// iterates through each cell on board and determines whether a cell should be left alive, set to dead and/or revived
 const gameOfLifeAlgo = () => {
     let aCells = []
     let dCells = []
@@ -96,6 +93,7 @@ const gameOfLifeAlgo = () => {
     }
 }
 
+// switches color from one to the other
 const colorChange = function () {
     if(this.style.backgroundColor === 'black'){
         this.style.backgroundColor = 'white'
@@ -104,6 +102,7 @@ const colorChange = function () {
     }
 }
 
+// sets board to previous build before process was begun
 const buildCurrent = () => {
     let rows = document.querySelectorAll('tr')
     for (let i = 0; i < rows.length; i++){
@@ -118,6 +117,7 @@ const buildCurrent = () => {
     }
 }
 
+// saves current build for reset
 const save = () => {
     let board = []
     let rows = document.querySelectorAll('tr')
@@ -136,6 +136,7 @@ const save = () => {
     return board
 }
 
+// clears board and sets all cells to white, resets current build
 const clear = () => {
     let rows = document.querySelectorAll('tr')
     for (let row of rows){
@@ -148,6 +149,7 @@ const clear = () => {
     reset()
 }
 
+// resets generation counter
 const reset = () => {
     generations = 0
     let gen = document.querySelector('#gen')
@@ -172,16 +174,18 @@ const createBoard = (height, width) => {
 
 const height = 50
 const width = 70
-let flag = true
+let flag = true     // used for stopping and running process
 let generations = 0
-let current = []
+let current = []    // used to save previous state for reset
 
+// builds 50x70 board
 createBoard(height, width)
 let boardG = document.querySelectorAll('#gol')
 for (let i = 0; i < boardG.length; i++){
     boardG[i].addEventListener('click', colorChange)
 }
 
+// starts process
 let btnRun = document.querySelector('#run')
 btnRun.addEventListener('click', function () {
     flag = true
@@ -189,14 +193,17 @@ btnRun.addEventListener('click', function () {
 })
 btnRun.addEventListener('click', gameOfLifeAlgo)
 
+// stops current run
 let btnStop = document.querySelector('#stop')
 btnStop.addEventListener('click', function (){
     flag = false
 })
 
+// resets to initial setup before run
 let btnReset = document.querySelector('#reset')
 btnReset.addEventListener('click', reset)
 btnReset.addEventListener('click', buildCurrent)
 
+// Clears board
 let btnClear = document.querySelector('#clear')
 btnClear.addEventListener('click', clear)
